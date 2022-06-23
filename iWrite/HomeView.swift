@@ -24,7 +24,7 @@ struct HomeView: View {
  @State var purchaseSuccess = false
     @State var purchaseFail = false
   @State private var dates: [Date] = UserDefaults.standard.object(forKey: "dates") as? [Date] ?? []
-
+@State var krotosSheet = false
     @State var spamAlert = false
     
     @AppStorage("sheetShow") var showingSheet = true
@@ -76,8 +76,10 @@ struct HomeView: View {
      
             if isUnlocked == false {
                 VStack {
+        
                     Spacer()
-                    
+                    Spacer()
+                    Spacer()
                     Text("  Authenticate. \n       Securely. ")
                         .font(.title)
                         .fontWeight(.heavy)
@@ -104,7 +106,7 @@ struct HomeView: View {
                         .fontWeight(.ultraLight)
                     
                     Spacer()
-                    Spacer()
+                   Spacer()
                 }
             }
             
@@ -133,28 +135,49 @@ struct HomeView: View {
             
             
             HStack {
-               
-        Spacer()
-                Spacer()
+                
+               Spacer()
+               Spacer()
+            
+
+                    
         Text("YouWrite")
-                .font(.system(size: 55))
-                .fontWeight(.bold)
+                .font(.system(size: 45))
+                .fontWeight(.heavy)
                 .foregroundColor(Color(red: 0.5, green: 0.4, blue: 0.8))
+                    
+                 
                 
-                .padding(.top, -125)
                 
+                
+                     Spacer()
            
                 Spacer()
                           Spacer()
                           Spacer()
                           Spacer()
                 Spacer()
-               
+                Spacer()
             }
                 
+                VStack {
+                    
+                 
+                    Divider()
+                        .background(Color(red: 0.5, green: 0.4, blue: 0.8))
+                        .padding(.top, -25)
+                        .frame(width: 350)
+                    
+                  
+                   
+                }
+               
+                VStack {
+              
                 HStack {
+         Spacer()
                     Spacer()
-                    Spacer()
+              
                 Text("Hello, \(firstName)!")
              
                     .fontWeight(.bold)
@@ -172,19 +195,15 @@ struct HomeView: View {
         
                 
                 }
+                }
+                
+            
              
             }
-            VStack {
-                
-             
-                Divider()
-                    .background(Color(red: 0.5, green: 0.4, blue: 0.8))
-                    .padding(.top, -110)
-                    .frame(width: 350)
-                
-              
-               
-            }
+
+        
+     Spacer()
+            Spacer()
             
       
             
@@ -352,7 +371,14 @@ struct HomeView: View {
                                     let ad = 5
                                     
                                     if hi % ad == 0 {
+                                        HStack {
+                                      
                                         BannerAd(unitId: "ca-app-pub-6142532326654511/8733697450")
+                                        Spacer()
+                                            Spacer()
+                                            Spacer()
+                                            Spacer()
+                                        }
                                     }
                                 }
                            }
@@ -562,7 +588,16 @@ struct HomeView: View {
                         
                         
                 }
-            
+                    Button {
+                addEntry = true
+                    } label: {
+                    
+                            VStack {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.system(size: 70))
+                            }
+                    .foregroundColor(Color(red: 0.5, green: 0.4, blue: 0.8))
+                        }
                     Button {
                    
                        shopShown = true
@@ -934,8 +969,8 @@ struct HomeView: View {
                                         }
                                     }
                                     
+                    
                                     BannerAd(unitId: "ca-app-pub-6142532326654511/8733697450")
-                                    
                               
                                 }.alert("Purchase successful", isPresented: $purchaseSuccess) {
                                     
@@ -957,61 +992,25 @@ struct HomeView: View {
         
                             }
                         }
+                      
                     }
                  
-                Spacer()
-                Spacer()
-       
+            Spacer()
+                    Spacer()
                     HStack {
                         
+                        Spacer()
                         
-                        BannerAd(unitId: "ca-app-pub-6142532326654511/8733697450")
-                         
-                       
-                Button {
-            addEntry = true
-                } label: {
-                   
-        
-                    Spacer()
-                     Spacer()
-            
-                    Spacer()
-                     Spacer()
-                  
-                Spacer()
-                 Spacer()
-               
-                    HStack {
-                        Spacer()
-                        Spacer()
-                        Spacer()
-                        Spacer()
-                        Spacer()
-                        Spacer()
-                 
-             
-                
-                        VStack {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 70))
-                        .padding(.horizontal, -80)
-                        }
-                .foregroundColor(Color(red: 0.5, green: 0.4, blue: 0.8))
-                        
-                        Spacer()
-                        Spacer()
-                   
-                    }
-              
- Spacer()
-               Spacer()
                     
-                }
-                Spacer()
-      
+                            BannerAd(unitId: "ca-app-pub-6142532326654511/8733697450")
+                            
+                        
+                        
+                        Spacer()
 
                     }
+                    
+                    
             }
 
                        
@@ -1055,6 +1054,12 @@ struct HomeView: View {
             Spacer()
             }
             
+            VStack {
+                
+            }
+            .sheet(isPresented: $krotosSheet) {
+                kroc()
+               }
             
             VStack {
                 
@@ -1144,9 +1149,10 @@ struct HomeView: View {
                                 
                                 if text.count > characters {
                                     krotos += increaseKrotos
-                                    characters += 150
-                                    increaseKrotos += 1
+                                    characters += 50
+                                    increaseKrotos += 2
                                     level += 1
+                                    krotosSheet = true
                                 }
                                 texties.append(text)
                                 titles.append(title)
@@ -1177,7 +1183,7 @@ struct HomeView: View {
               
                             
                         }
-                       
+                     
                         
                        
                     } message: {
@@ -1213,12 +1219,12 @@ struct HomeView: View {
           
             
         }
-           
-      
+
         }
         .onAppear(perform: authenticate)
-      
+        .padding(.top, -150)
         }
+  
     
     func authenticate() {
         let context = LAContext()
