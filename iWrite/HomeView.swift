@@ -42,7 +42,7 @@ struct HomeView: View {
     @State var postsPresent = false
     @State var presentAlert = false
     @State var saveData = false
-    @State var level = 0
+    @AppStorage("level") var level = 0
     @State var aboutSheet = false
     @State var help = false
     @State var profile = false
