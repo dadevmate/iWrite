@@ -326,6 +326,8 @@ struct HomeView: View {
                                                 .foregroundColor(Color.primary)
                                         Text("\(titles[hi])")
                                                 .foregroundColor(Color.primary)
+                                    
+                                        
                                         }
                                     }
                                     .sheet(isPresented: $presentSheet) {
@@ -382,6 +384,12 @@ struct HomeView: View {
                                     }
                                 }
                            }
+                            .onDelete { indexSet in
+                                
+                                entrySelected.remove(atOffsets: indexSet)
+                                UserDefaults.standard.set(entrySelected, forKey: "entrySelected")
+                                
+                            }
                         }
                        }
                     .navigationTitle("My Entries")
@@ -499,7 +507,7 @@ struct HomeView: View {
                     .fontWeight(.medium)
                 
                 
-                Text("            Krotos is the virtual currency in \n            our app. Get more of it by writing \n more entries. The more you write, the more \n            Krotos you get each time. However, \n                  there is a certain number of \n             characters you must write to get \n                                     Krotos. \n \n The character requirement increases as \n you write more entries. However, you do \n get more Krotos each time you write a \n new entry if the character limit \n is met. \n \n Krotos can be used to purchase \n profile images and other special perks,\n which are coming soon! Stay tuned!")
+                Text("            Krotos is the virtual currency in \n            our app. Get more of it by writing \n more entries. The more you write, the more \n            Krotos you get each time. However, \n                  there is a certain number of \n             characters you must write to get \n                                     Krotos. \n \n The character requirement increases as \n you write more entries. The starting character \n limit is 150. However, you do get more \n Krotos each time you write a new entry if the \n character limit is met. \n \n Krotos can be used to purchase \n profile images and other special perks,\n which are coming soon! Stay tuned!")
                     .fontWeight(.ultraLight)
                    
                     Spacer()
@@ -576,7 +584,7 @@ struct HomeView: View {
                             .font(.caption2)
                             .padding()
                                 
-                       Text(" Email and name not showing up?\n Please sign out as stated above and sign in again.")
+                       Text(" Email and name not showing up?\n Please sign out as stated above, delete the app and sign in again.")
                            .fontWeight(.ultraLight)
                             .font(.caption2)
                             .padding()

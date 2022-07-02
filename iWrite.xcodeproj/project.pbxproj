@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		581DFB5F286062750093FBE0 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 581DFB5E286062750093FBE0 /* GoogleMobileAds */; };
 		581DFB622860682A0093FBE0 /* BannerAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581DFB612860682A0093FBE0 /* BannerAd.swift */; };
+		5849619A2869A63E0050A8BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 584961992869A63E0050A8BF /* GoogleService-Info.plist */; };
 		5872D4E2283BBEB50051C828 /* iWriteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5872D4E1283BBEB50051C828 /* iWriteApp.swift */; };
 		5872D4E4283BBEB50051C828 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5872D4E3283BBEB50051C828 /* HomeView.swift */; };
 		5872D4E6283BBEB60051C828 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5872D4E5283BBEB60051C828 /* Assets.xcassets */; };
@@ -17,7 +18,6 @@
 		5872D4FD283BBEB60051C828 /* iWriteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5872D4FC283BBEB60051C828 /* iWriteUITests.swift */; };
 		5872D4FF283BBEB60051C828 /* iWriteUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5872D4FE283BBEB60051C828 /* iWriteUITestsLaunchTests.swift */; };
 		58760F2C285AEA0F00123E72 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58760F2B285AEA0F00123E72 /* ContentView.swift */; };
-		58761274285F6D8600EFD289 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58761273285F6D8600EFD289 /* GoogleService-Info.plist */; };
 		58761277285F6DF200EFD289 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 58761276285F6DF200EFD289 /* FirebaseAnalytics */; };
 		58761279285F6DF200EFD289 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 58761278285F6DF200EFD289 /* FirebaseAuth */; };
 		5876127B285F6DF200EFD289 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5876127A285F6DF200EFD289 /* FirebaseDatabase */; };
@@ -47,6 +47,7 @@
 /* Begin PBXFileReference section */
 		581DFB602860675D0093FBE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		581DFB612860682A0093FBE0 /* BannerAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAd.swift; sourceTree = "<group>"; };
+		584961992869A63E0050A8BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5872D4DE283BBEB50051C828 /* iWrite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWrite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5872D4E1283BBEB50051C828 /* iWriteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iWriteApp.swift; sourceTree = "<group>"; };
 		5872D4E3283BBEB50051C828 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -59,7 +60,6 @@
 		5872D4FE283BBEB60051C828 /* iWriteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iWriteUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		58760F2B285AEA0F00123E72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		58760F2D285AEB5500123E72 /* iWrite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iWrite.entitlements; sourceTree = "<group>"; };
-		58761273285F6D8600EFD289 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		58B40EF728576E8800830158 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../../Calcula/Shared/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		58DF5ADB28641A8900BD889A /* krotosSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = krotosSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,7 +124,7 @@
 				5872D4E3283BBEB50051C828 /* HomeView.swift */,
 				58DF5ADB28641A8900BD889A /* krotosSheet.swift */,
 				58760F2B285AEA0F00123E72 /* ContentView.swift */,
-				58761273285F6D8600EFD289 /* GoogleService-Info.plist */,
+				584961992869A63E0050A8BF /* GoogleService-Info.plist */,
 				5872D4E5283BBEB60051C828 /* Assets.xcassets */,
 				58B40EF728576E8800830158 /* Launch Screen.storyboard */,
 				5872D4E7283BBEB60051C828 /* Preview Content */,
@@ -274,7 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58B40EF828576E8800830158 /* Launch Screen.storyboard in Resources */,
-				58761274285F6D8600EFD289 /* GoogleService-Info.plist in Resources */,
+				5849619A2869A63E0050A8BF /* GoogleService-Info.plist in Resources */,
 				5872D4E9283BBEB60051C828 /* Preview Assets.xcassets in Resources */,
 				5872D4E6283BBEB60051C828 /* Assets.xcassets in Resources */,
 			);
@@ -481,7 +481,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.36;
+				MARKETING_VERSION = 1.38;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nethan.sample.iAuthor;
 				PRODUCT_NAME = iWrite;
@@ -516,7 +516,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.36;
+				MARKETING_VERSION = 1.38;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nethan.sample.iAuthor;
 				PRODUCT_NAME = iWrite;
