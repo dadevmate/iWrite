@@ -8,34 +8,55 @@
 import SwiftUI
 import Foundation
 import LocalAuthentication
- 
+import UserNotifications
+
+
 
 
 struct HomeView: View {
-   
+    @State var tooLong = false
+   @State var countsa = 0
+ @State var imageLinkie = ""
+    @State var greetingsText = ""
+    @AppStorage("latestEntry") var latestEntry = ""
+    @State var daties = Date.now
   @State private var titles : [String] =  UserDefaults.standard.object(forKey: "titles") as? [String] ?? []
-
+    @FocusState private var keyTurnOn: Bool
+   @State private var remindersSheet = false
+    @State var scheduled2 = false
+    @State var emptyBlanks = false
+    @State var deleteAccount = false
+@AppStorage("req") var requestSuccess = false
     @State private var animateGradient = false
-    
+    @State private var showImagePicker = false
     @State private var isUnlocked = false
+    @State var hoursies = 0
+@State var customiee = ""
+    @State var minutesie = 1
  @State private var texties: [String] = UserDefaults.standard.object(forKey: "texties") as? [String] ?? []
-
+    @AppStorage("notifTitleConf") var notifTitleConf = ""
+    @AppStorage("notifMessageConf") var notifMessageConf = ""
+    @State var notifTitle = ""
+    @State var notifMessage = ""
+    @State var scheduled = false
+    @AppStorage("hoursiee") var hoursi = 1
+@State var entryEditText = ""
     @State var shopShown = false
  @State var purchaseSuccess = false
     @State var purchaseFail = false
   @State private var dates: [Date] = UserDefaults.standard.object(forKey: "dates") as? [Date] ?? []
 @State var krotosSheet = false
     @State var spamAlert = false
-    
+    @State private var imagas: [String] = UserDefaults.standard.object(forKey: "imagas") as? [String] ?? []
     @AppStorage("sheetShow") var showingSheet = true
 @State var textValue = ""
     @State var addEntry = false
 @State private var presentSheet = false
-
-
+@State var editEntry = false
+@State var searchedText = ""
     @State private var entrySelected: [Int] = UserDefaults.standard.object(forKey: "entrySelected") as? [Int] ?? []
     @AppStorage("entry") private var entry = 0
-
+    @State private var imageURLs: [String] = UserDefaults.standard.object(forKey: "imageURLs") as? [String] ?? []
     @State private var title = ""
     @State private var text = ""
     @State private var date = ""
@@ -49,31 +70,33 @@ struct HomeView: View {
     @State var missingInfo = false
     @State var selectedDate = Date.now
     @FocusState private var keyboardOn: Bool
-   
+   @AppStorage("customGreet") var customGreet = false
     @AppStorage("email") var email: String = ""
     @AppStorage("firstName") var firstName: String = ""
     @AppStorage("lastName") var lastName: String = ""
     @AppStorage("userId") var userId: String = ""
     @State var bagShown = false
-
+     @State var thatImage = ""
+    @State var thatDate = Date.now
+    @State var thatText = ""
+    @State var thatTitle = ""
 @AppStorage("krotos") var krotos = 5
 @AppStorage("characters") var characters = 150
 @AppStorage("increaseKrotos") var increaseKrotos = 1
 @State var avatarEquipped = false
 
 @State var imagesOwned = UserDefaults.standard.object(forKey: "imagesOwned") as? [String] ?? []
-  
+  @State var fiill = false
 @AppStorage("imageSelected") var imageSelected = "person.crop.circle.badge.questionmark.fill"
+    @AppStorage("greetingsie") var greetingsie = ""
 
-
+@AppStorage("shopClicked") var shopClicked = false
     
     var body: some View {
-        
-    
+ 
         
         VStack {
-            
-     
+    
             if isUnlocked == false {
                 VStack {
         
@@ -108,10 +131,9 @@ struct HomeView: View {
                     Spacer()
                    Spacer()
                 }
-            }
+            } else {
             
-            
-        if isUnlocked {
+          
      
         NavigationView {
             
@@ -127,63 +149,37 @@ struct HomeView: View {
             
         VStack {
             
-       
-        
+            Spacer()
+            Spacer()
+            Spacer()
+     
             VStack {
                 
-              
+         
+            Spacer()
             
-            
-            HStack {
-                
-               Spacer()
-               Spacer()
-            
-
-                    
-        Text("YouWrite")
-                .font(.system(size: 45))
-                .fontWeight(.heavy)
-                .foregroundColor(Color(red: 0.5, green: 0.4, blue: 0.8))
-                    
-                 
-                
-                
-                
-                     Spacer()
-           
                 Spacer()
-                          Spacer()
-                          Spacer()
-                          Spacer()
-                Spacer()
-                Spacer()
-            }
                 
-                VStack {
+                
+    
                     
-                 
-                    Divider()
-                        .background(Color(red: 0.5, green: 0.4, blue: 0.8))
-                        .padding(.top, -25)
-                        .frame(width: 350)
-                    
-                  
-                   
-                }
-               
                 VStack {
               
                 HStack {
          Spacer()
                     Spacer()
               
-                Text("Hello, \(firstName)!")
-             
-                    .fontWeight(.bold)
-                    .font(.title)
-                    .foregroundColor(Color(red: 0.3, green: 0.4, blue: 0.8))
-             
+                    if customGreet == false {
+                        Text("Hello there!")
+                            .fontWeight(.bold)
+                            .font(.title2)
+                            .foregroundColor(Color(red: 0.3, green: 0.4, blue: 0.8))
+                    } else {
+                        Text("\(greetingsie)")
+                            .fontWeight(.bold)
+                            .font(.title2)
+                            .foregroundColor(Color(red: 0.3, green: 0.4, blue: 0.8))
+                    }
                     
                     Spacer()
                     Spacer()
@@ -195,15 +191,24 @@ struct HomeView: View {
         
                 
                 }
-                }
+                    
+           
+                 
+                            
+                                
+               
+                        BannerAd(unitId: "ca-app-pub-6142532326654511/8733697450")
+                 
+                            
+                        
+                        
+                    }
                 
-            
-             
+              
             }
 
         
-     Spacer()
-            Spacer()
+
             
       
             
@@ -213,9 +218,6 @@ struct HomeView: View {
                 Spacer()
                 Spacer()
      
- 
-      
-          
                 VStack {
                     Button {
                    
@@ -255,7 +257,6 @@ struct HomeView: View {
                        
                             
                             List {
-                                BannerAd(unitId: "ca-app-pub-6142532326654511/8733697450")
                                 ForEach(imagesOwned, id: \.self) { imageName in
                                 HStack {
                                     Spacer()
@@ -289,6 +290,7 @@ struct HomeView: View {
                     }
                     
                     
+               
             
                
                     
@@ -313,13 +315,132 @@ struct HomeView: View {
                
                 .sheet(isPresented: $postsPresent) {
                     NavigationView {
-                    Form {
+                    List {
                         Section {
+                            VStack {
+                                
+                            }
+                            .sheet(isPresented: $remindersSheet) {
+                                NavigationView {
+                                List {
+                                    
+                                
+                                    if requestSuccess == false {
+                                    Button("Enable notifications") {
+                                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                                            
+                                            if success {
+                                                print("All set")
+                                        requestSuccess = true
+                                            } else if let error = error {
+                                                print(error.localizedDescription)
+                                            }
+                                        }
+                                        }
+                                    
+                                    } else if requestSuccess == true {
+                                        
+                                        Section {
+                                        
+                                            Stepper("No. of hours",value: $hoursi, in: 1...9)
+                                        Text("\(hoursi) hour(s)")
+                                    Button("Schedule journalling reminder") {
+                                        let content = UNMutableNotificationContent()
+                                        content.title = "Journalling time!"
+                                        content.subtitle = "Time to add an entry to your journal"
+                                        content.sound = UNNotificationSound.default
+                                        
+                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(hoursi * 3600), repeats: true)
+                                        
+                                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                                        
+                                        UNUserNotificationCenter.current().add(request)
+                                        
+                                        scheduled = true
+                                    }
+                                    .alert("Journalling reminder successfully scheduled!",isPresented: $scheduled) {
+                                        
+                                    } message: {
+                                        Text("Every \(hoursi) hour(s), you'll receive a reminder to add a new entry to your journal!")
+                                    }
+                                        } header: {
+                                            Text("Daily journalling reminder")
+                                        }
+                                        
+                                        
+                                        
+                                        Section {
+                                            Stepper("No. of hours",value: $hoursies, in: 0...9)
+                                        Text("\(hoursies) hour(s)")
+                                            Stepper("No. of minutes",value: $minutesie, in: 1...60)
+                                        Text("\(minutesie) minute(s)")
+                                            TextField("Title", text: $notifTitle)
+                                            
+                                            TextField("Message", text: $notifMessage)
+                                    
+                                    Button("Schedule custom reminder") {
+                                      
+                                        
+                                        if notifTitle.trimmingCharacters(in: .whitespacesAndNewlines) != ""  && notifMessage.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                                        notifTitleConf = notifTitle
+                                        notifMessageConf = notifMessage
+                                        
+                                        notifTitle = ""
+                                        notifMessage = ""
+                                        
+                            
+                                        
+                                        
+                                        
+                                        let content = UNMutableNotificationContent()
+                                        content.title = "\(notifTitleConf)"
+                                        content.subtitle = "\(notifMessageConf)"
+                                        content.sound = UNNotificationSound.default
+                                        
+                                        
+                                        
+                                        
+                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(hoursies * 3600 + minutesie * 60), repeats: false)
+                                        
+                                        
+                                        
+                                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                                        
+                                        UNUserNotificationCenter.current().add(request)
+                                        scheduled2 = true
+                                        } else {
+                                            emptyBlanks = true
+                                        }
+                                    }
+                                    .alert("Missing fields", isPresented: $emptyBlanks) {
+                                        
+                                    } message: {
+                                        Text("Please fill up any blank fields.")
+                                    }
+                                    .alert("Reminder set successfully!",isPresented: $scheduled2) {
+                                        
+                                    } message: {
+                                        Text("In \(hoursies) hour(s) and \(minutesie) minute(s), you'll receive your custom reminder.")
+                                    }
+                                        } header: {
+                                            Text("Custom reminder")
+                                        }
+                                    }
+                                    
+                                }
+                                .navigationTitle("Schedule reminders")
+                                }
+                            }
+
                             ForEach(entrySelected, id: \.self) { hi in
                                 Section {
                                     
                                     Button(action:{
                                         presentSheet = true
+                                        thatImage = imagas[hi]
+                                        thatDate = dates[hi]
+                                        thatText = texties[hi]
+                                        thatTitle = titles[hi]
                                     }) {
                                         HStack {
                                         Image(systemName: "\(hi).circle.fill")
@@ -331,14 +452,44 @@ struct HomeView: View {
                                         }
                                     }
                                     .sheet(isPresented: $presentSheet) {
-                                        
+                                        NavigationView {
                                         List {
+                                            
+                                            Button("Edit") {
+                                                editEntry = true
+                                                entryEditText = texties[hi]
+                                            }
+                                            .sheet(isPresented: $editEntry) {
+                                                NavigationView {
+                                                    List {
+                                                        Section {
+                                                            TextEditor(text: $entryEditText)
+                                                                .focused($keyTurnOn)
+                                                            HStack {
+                                                                Spacer()
+                                                            Button("Make edit") {
+                                                                texties[hi] = entryEditText
+                                                                UserDefaults.standard.set(texties, forKey: "texties")
+                                                                
+                                                             entryEditText = ""
+                                                                editEntry = false
+                                                            }
+                                                                Spacer()
+                                                            }
+                                                        }
+                                                    }
+                                                    .navigationBarTitle("Edit this entry")
+                                                }
+                                            }
+                                            
+                                             
+                                            
                                     
-                                   Spacer()
+                    
                                     
                                             HStack {
                                                 Spacer()
-                                   Text("\(titles[hi])")
+                                   Text("\(thatTitle)")
                                         .fontWeight(.bold)
                                         .font(.title)
                                                 Spacer()
@@ -348,40 +499,45 @@ struct HomeView: View {
                                     
                                     HStack {
                                         Spacer()
-                                    Text("\(dates[hi])")
+                                    Text("\(thatDate)")
                                             .fontWeight(.light)
                                         Spacer()
                                         Spacer()
                                         Spacer()
                                         Spacer()
                                     }
-                                    
+                                           
                                     Spacer()
-                                    
-                                    Text("\(texties[hi])")
+                                            
+                                      
+                                                AsyncImage(url: URL(string: "\(thatImage)")) { image in image
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                } placeholder: {
+                                                    
+                                                    ProgressView()
+                                                        .progressViewStyle(.circular)
+                                                }
+                                              
+                                            
+                                            Spacer()
+                                    Text("\(thatText)")
                                         .font(.body)
                                     
                                     Spacer()
                                     Spacer()
-                                            Spacer()
-                                            Spacer()
+                                 
+                                         
+                               
+                                        }
+                                   
                                
                                         }
                                         Spacer()
                                 }
+                                  
                                     
-                                    let ad = 5
-                                    
-                                    if hi % ad == 0 {
-                                        HStack {
-                                      
-                                        BannerAd(unitId: "ca-app-pub-6142532326654511/8733697450")
-                                        Spacer()
-                                            Spacer()
-                                            Spacer()
-                                            Spacer()
-                                        }
-                                    }
+                             
                                 }
                            }
                             .onDelete { indexSet in
@@ -392,9 +548,29 @@ struct HomeView: View {
                             }
                         }
                        }
+                   
                     .navigationTitle("My Entries")
+                    .toolbar {
+                        ToolbarItem(placement: .keyboard) {
+                            Button("Done") {
+                                keyTurnOn = false
+                            }
+                        }
+                     
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button {
+                                    
+                          
+                                        remindersSheet = true
+                                    
+                                } label: {
+                                    Image(systemName: "calendar.badge.clock")
+                                }
+                            }
+                        
                     }
-                 
+                    }
+               
                 }
                   
             Button {
@@ -555,36 +731,32 @@ struct HomeView: View {
                         VStack {
       
                           
-                        
-                        Text("Name: \(firstName) \(lastName) \n")
-                            .fontWeight(.medium)
-                            .font(.body)
-                            Spacer()
-                        Text("Email: \(email)")
-                                 .fontWeight(.medium)
-                                 .font(.body)
                       
-                            Spacer()
+                         Spacer()
+                            
+                        
+                            
                         Text("Krotos: \(krotos)")
-                                 .fontWeight(.medium)
-                                 .font(.body)
+                                 .fontWeight(.light)
+                                 .font(.title)
                                  .padding(.top, 10)
                             Spacer()
                         Text("Level: \(level)")
-                                 .fontWeight(.medium)
-                                 .font(.body)
+                                 .fontWeight(.light)
+                                 .font(.title)
                                  .padding(.top, 10)
-                        
-                    
-                    Spacer()
+                            
+                            
+                            Spacer()
+                            
+                         
+
+                   
                             VStack {
               
-                    Text("When you delete this app, your Krotos will be reset. To sign out, go to Settings > Your name > Passwords & Security > Apps using Apple ID > iWrite > Stop using Apple ID.")
-                            .fontWeight(.ultraLight)
-                            .font(.caption2)
-                            .padding()
+           
                                 
-                       Text(" Email and name not showing up?\n Please sign out as stated above, delete the app and sign in again.")
+                       Text("Your Krotos and Level will be reset when you delete this app.")
                            .fontWeight(.ultraLight)
                             .font(.caption2)
                             .padding()
@@ -607,9 +779,8 @@ struct HomeView: View {
                     .foregroundColor(Color(red: 0.5, green: 0.4, blue: 0.8))
                         }
                     Button {
-                   
                        shopShown = true
-                        
+                       shopClicked = true
                     } label: {
                         
                         ZStack {
@@ -632,7 +803,7 @@ struct HomeView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                         
-                        Text("    Shop with your Krotos. \n Buy Avatars for your Profile.")
+                        Text("   Shop with your Krotos.")
                             .fontWeight(.light)
                             .font(.body)
                                 
@@ -640,16 +811,25 @@ struct HomeView: View {
                                 List {
                                     
                                     
-                                    VStack {
+                             
                                     
                                     Section {
-                                        
-                                        HStack {
-                                        
-                                        Text("Balance: \(krotos) Krotos")
-                                            .fontWeight(.heavy)
-                                            .font(.body)
-                                            Spacer()
+                                   
+                                        VStack {
+                                            HStack {
+                                                
+                                                Text("Balance: \(krotos) Krotos")
+                                                    .fontWeight(.heavy)
+                                                    .font(.body)
+                                                Spacer()
+                                            }
+                                            HStack {
+                                                
+                                                Text("Avatars for your profile")
+                                                    .fontWeight(.light)
+                                                    .font(.body)
+                                                Spacer()
+                                            }
                                         }
                                         VStack {
                                             
@@ -682,6 +862,7 @@ struct HomeView: View {
                                     }
                                     
                                     Section {
+                                   
                                         VStack {
                                             Button(action: {
                                                 if imagesOwned.contains("gamecontroller.fill") != true {
@@ -715,6 +896,7 @@ struct HomeView: View {
                                    
                                     
                                     Section {
+                                 
                                         VStack {
                                  
                                             
@@ -750,6 +932,7 @@ struct HomeView: View {
                                     
                        
                                     Section {
+                                   
                                         VStack {
                                   
                                             
@@ -780,8 +963,11 @@ struct HomeView: View {
                                             }
                                         }
                                     }
-                                    }
+                                    
+                                 
+                                    
                                     Section {
+                              
                                         VStack {
                                   
                                             
@@ -812,8 +998,9 @@ struct HomeView: View {
                                         }
                                         }
                                     
-                                    BannerAd(unitId: "ca-app-pub-6142532326654511/8733697450")
+                              
                                     Section {
+                               
                                         VStack {
                                
                                             
@@ -849,6 +1036,7 @@ struct HomeView: View {
                                     
                                     
                                     Section {
+                                      
                                         VStack {
                                
                                             
@@ -880,6 +1068,7 @@ struct HomeView: View {
                                         }
                                     }
                                     Section {
+                               
                                         VStack {
                                    
                                             
@@ -910,8 +1099,9 @@ struct HomeView: View {
                                             }
                                         }
                                     }
-                                    BannerAd(unitId: "ca-app-pub-6142532326654511/8733697450")
+                                
                                     Section {
+                                   
                                         VStack {
                         
                                             
@@ -946,50 +1136,297 @@ struct HomeView: View {
                                  
                                     
                                     Section {
-                                        VStack {
-                                 
-                                            
-                                            Button(action: {
+                                      
+                                        Section {
+                                            VStack {
                                                 
-                                                if imagesOwned.contains("hare.fill") != true {
-                                                    if krotos >= 125 {
-                                                        krotos-=125
-                                                        purchaseSuccess = true
-                                                        imagesOwned.append("hare.fill")
-                                                        UserDefaults.standard.set(imagesOwned, forKey: "imagesOwned")
+                                                
+                                                Button(action: {
+                                                    
+                                                    if imagesOwned.contains("hare.fill") != true {
+                                                        if krotos >= 125 {
+                                                            krotos-=125
+                                                            purchaseSuccess = true
+                                                            imagesOwned.append("hare.fill")
+                                                            UserDefaults.standard.set(imagesOwned, forKey: "imagesOwned")
+                                                        } else {
+                                                            purchaseFail = true
+                                                        }
+                                                        
                                                     } else {
                                                         purchaseFail = true
                                                     }
-                                                      
-                                                    } else {
-                                                       purchaseFail = true
-                                                    }
-                                            }) {
-                                                Image(systemName: "hare.fill")
-                                                            .font(.largeTitle)
-                                                    .frame(width: 310, height: 50)
-                                                    .foregroundColor(.primary)
-                                                  
-                                                Text("125 Krotos")
-                                                    .fontWeight(.ultraLight)
-                                                    .foregroundColor(.primary)
+                                                }) {
+                                                    Image(systemName: "hare.fill")
+                                                        .font(.largeTitle)
+                                                        .frame(width: 310, height: 50)
+                                                        .foregroundColor(.primary)
+                                                    
+                                                    Text("125 Krotos")
+                                                        .fontWeight(.ultraLight)
+                                                        .foregroundColor(.primary)
+                                                }
                                             }
                                         }
+                                        
+                                        Section {
+                                    
+                                            VStack {
+                                     
+                                                
+                                                Button(action: {
+                                                    
+                                                    if imagesOwned.contains("function") != true {
+                                                        if krotos >= 500 {
+                                                            krotos-=500
+                                                            purchaseSuccess = true
+                                                            imagesOwned.append("function")
+                                                            UserDefaults.standard.set(imagesOwned, forKey: "imagesOwned")
+                                                        } else {
+                                                            purchaseFail = true
+                                                        }
+                                                          
+                                                        } else {
+                                                           purchaseFail = true
+                                                        }
+                                                }) {
+                                                    Image(systemName: "function")
+                                                                .font(.largeTitle)
+                                                        .frame(width: 310, height: 50)
+                                                        .foregroundColor(.primary)
+                                                      
+                                                    Text("500 Krotos")
+                                                        .fontWeight(.ultraLight)
+                                                        .foregroundColor(.primary)
+                                                }
+                                            }
+                                        }
+                                        
+                                        Section {
+                                      
+                                            VStack {
+                                     
+                                                
+                                                Button(action: {
+                                                    
+                                                    if imagesOwned.contains("signature") != true {
+                                                        if krotos >= 1000 {
+                                                            krotos-=1000
+                                                            purchaseSuccess = true
+                                                            imagesOwned.append("signature")
+                                                            UserDefaults.standard.set(imagesOwned, forKey: "imagesOwned")
+                                                        } else {
+                                                            purchaseFail = true
+                                                        }
+                                                          
+                                                        } else {
+                                                           purchaseFail = true
+                                                        }
+                                                }) {
+                                                    Image(systemName: "signature")
+                                                                .font(.largeTitle)
+                                                        .frame(width: 310, height: 50)
+                                                        .foregroundColor(.primary)
+                                                      
+                                                    Text("1000 Krotos")
+                                                        .fontWeight(.ultraLight)
+                                                        .foregroundColor(.primary)
+                                                }
+                                            }
+                                        }
+                                        
+                                        
+                                        Section {
+                                           
+                                            VStack {
+                                     
+                                                
+                                                Button(action: {
+                                                    
+                                                    if imagesOwned.contains("heart.text.square.fill") != true {
+                                                        if krotos >= 2000 {
+                                                            krotos-=2000
+                                                            purchaseSuccess = true
+                                                            imagesOwned.append("heart.text.square.fill")
+                                                            UserDefaults.standard.set(imagesOwned, forKey: "imagesOwned")
+                                                        } else {
+                                                            purchaseFail = true
+                                                        }
+                                                          
+                                                        } else {
+                                                           purchaseFail = true
+                                                        }
+                                                }) {
+                                                    Image(systemName: "heart.text.square.fill")
+                                                                .font(.largeTitle)
+                                                        .frame(width: 310, height: 50)
+                                                        .foregroundColor(.primary)
+                                                      
+                                                    Text("2000 Krotos")
+                                                        .fontWeight(.ultraLight)
+                                                        .foregroundColor(.primary)
+                                                }
+                                            }
+                                        }
+                                        
+                                        Section {
+                                       
+                                            VStack {
+                                     
+                                                
+                                                Button(action: {
+                                                    
+                                                    if imagesOwned.contains("globe.asia.australia") != true {
+                                                        if krotos >= 2500 {
+                                                            krotos-=2500
+                                                            purchaseSuccess = true
+                                                            imagesOwned.append("globe.asia.australia")
+                                                            UserDefaults.standard.set(imagesOwned, forKey: "imagesOwned")
+                                                        } else {
+                                                            purchaseFail = true
+                                                        }
+                                                          
+                                                        } else {
+                                                           purchaseFail = true
+                                                        }
+                                                }) {
+                                                    Image(systemName: "globe.asia.australia")
+                                                                .font(.largeTitle)
+                                                        .frame(width: 310, height: 50)
+                                                        .foregroundColor(.primary)
+                                                      
+                                                    Text("2500 Krotos")
+                                                        .fontWeight(.ultraLight)
+                                                        .foregroundColor(.primary)
+                                                }
+                                            }
+                                        }
+                                        
+                                        Section {
+                                            
+                                            VStack {
+                                     
+                                                
+                                                Button(action: {
+                                                    
+                                                    if imagesOwned.contains("tortoise.fill") != true {
+                                                        if krotos >= 3000 {
+                                                            krotos-=3000
+                                                            purchaseSuccess = true
+                                                            imagesOwned.append("tortoise.fill")
+                                                            UserDefaults.standard.set(imagesOwned, forKey: "imagesOwned")
+                                                        } else {
+                                                            purchaseFail = true
+                                                        }
+                                                          
+                                                        } else {
+                                                           purchaseFail = true
+                                                        }
+                                                }) {
+                                                    Image(systemName: "tortoise.fill")
+                                                                .font(.largeTitle)
+                                                        .frame(width: 310, height: 50)
+                                                        .foregroundColor(.primary)
+                                                      
+                                                    Text("3000 Krotos")
+                                                        .fontWeight(.ultraLight)
+                                                        .foregroundColor(.primary)
+                                                }
+                                            }
+                                        }
+                                        
+                                        Section {
+                                           
+                                            VStack {
+                                                Text("Buy Custom greeting")
+                                                    .fontWeight(.light)
+                                                    .font(.body)
+                                                Text("It'll appear when you open the app.")
+                                                    .fontWeight(.light)
+                                                    .font(.caption)
+                                                Text("4000 Krotos")
+                                                    .fontWeight(.ultraLight)
+                                                    .font(.body)
+                                                TextField("Your custom greeting", text: $customiee)
+                                                        .frame(width: 300)
+                                                        .cornerRadius(10)
+                                                        .textFieldStyle(
+                                                RoundedBorderTextFieldStyle()
+                                                        )
+                                                        .focused($keyboardOn)
+                                                
+                                                Button {
+                                                   
+                                                    if customiee.count == 0 {
+                                                        fiill = true
+                                                    } else {
+                                                        if customGreet == false {
+                                                            if krotos >= 4000 {
+                                                                
+                                                                if customiee.count < 20 {
+                                                                    krotos -= 4000
+                                                                    customGreet = true
+                                                                    greetingsie = customiee
+                                                                    
+                                                                    customiee = ""
+                                                                    
+                                                                    purchaseSuccess = true
+                                                                } else {
+                                                                    tooLong = true
+                                                                }
+                                                            } else {
+                                                                purchaseFail = true
+                                                            }
+                                                        } else {
+                                                            purchaseFail = true
+                                                        }
+                                                    }
+                                             
+                                                    
+                                              
+                                                } label: {
+                                                   
+                                                    ZStack {
+                                                        RoundedRectangle(cornerRadius: 8)
+                                                        .frame(width: 200, height: 60)
+                                                        .foregroundColor(.black)
+                                                        Text("Purchase")
+                                                            .font(.system(size: 22))
+                                                            .foregroundColor(.white)
+                                                    }
+                                                }
+                                            
+                                            }
+                                        }
+                                        
                                     }
                                     
-                    
-                                    BannerAd(unitId: "ca-app-pub-6142532326654511/8733697450")
+                                    
+                                    
+                                   
+                                
                               
                                 }.alert("Purchase successful", isPresented: $purchaseSuccess) {
                                     
                                 } message: {
-                                    Text("Enjoy your new Avatar!")
+                                    Text("Enjoy your purchase!")
                                 }
-                                .alert("Purchase failed", isPresented: $purchaseFail) {
+                                .confirmationDialog("Purchase failed", isPresented: $purchaseFail, titleVisibility: .visible) {
                                    
                                 } message: {
                                     Text("Something went wrong. Perhaps you already own this item or you don't have enough Krotos to buy it.")
                                 }
+                                .confirmationDialog("Fill in everything", isPresented: $fiill, titleVisibility: .visible) {
+                                   
+                                } message: {
+                                    Text("Please fill in the custom greeting that you would like to purchase.")
+                                }
+                                .confirmationDialog("Custom greeting too long", isPresented: $tooLong, titleVisibility: .visible) {
+                                   
+                                } message: {
+                                    Text("Your custom greeting must be less than 20 characters. Please fix it.")
+                                }
+
                         
                         Spacer()
                         Spacer()
@@ -1002,17 +1439,14 @@ struct HomeView: View {
                         }
                       
                     }
-                 
+                  
             Spacer()
                     Spacer()
                     HStack {
                         
                         Spacer()
                         
-                    
-                            BannerAd(unitId: "ca-app-pub-6142532326654511/8733697450")
-                            
-                        
+                  
                         
                         Spacer()
 
@@ -1072,14 +1506,17 @@ struct HomeView: View {
             VStack {
                 
             } .sheet(isPresented: $addEntry) {
-                Spacer()
+                
+                NavigationView {
+                 
+                    List {
+                        
+                        
+                        
+      
                 
                 VStack {
-                    Spacer()
-                Text("Add a new entry")
-                    .font(.title)
-                    .fontWeight(.thin)
-                Spacer()
+              
                  
                 VStack {
                     
@@ -1093,13 +1530,10 @@ struct HomeView: View {
                         .focused($keyboardOn)
                     */
           
-                    HStack {
-                    Spacer()
                     DatePicker(selection: $selectedDate) {
                         Text("Select a date:")
                     }
-                    Spacer()
-                    }
+                   
                
                     TextField("Title:", text: $title)
                             .frame(width: 200)
@@ -1108,6 +1542,23 @@ struct HomeView: View {
                                 RoundedBorderTextFieldStyle()
                             )
                             .focused($keyboardOn)
+                    
+                    TextField("Image link (optional):", text: $imageLinkie)
+                            .frame(width: 300)
+                            .cornerRadius(10)
+                            .textFieldStyle(
+                                RoundedBorderTextFieldStyle()
+                            )
+                            .focused($keyboardOn)
+      
+                    AsyncImage(url: URL(string: "\(imageLinkie)")) { image in image
+                             .resizable()
+                            .scaledToFit()
+                    } placeholder: {
+                   
+                         ProgressView()
+                            .progressViewStyle(.circular)
+                    }
           
                 }
        Spacer()
@@ -1117,7 +1568,9 @@ struct HomeView: View {
                     .border(Color.primary,width: 1)
                     .focused($keyboardOn)
                     
-                    Spacer()
+                   
+                    
+                    
                 Button {
                     if text == "" && title == "" || text == "" || title == "" {
                         missingInfo = true
@@ -1136,7 +1589,7 @@ struct HomeView: View {
                     }
                     }
                     Spacer()
-                        .alert("You've already submitted a similar entry", isPresented: $spamAlert) {
+                        .confirmationDialog("You've already submitted a similar entry", isPresented: $spamAlert, titleVisibility: .visible) {
                             
                         } message: {
                             Text("Please write more unique entries, before submitting.")
@@ -1154,7 +1607,7 @@ struct HomeView: View {
                             if saveData == true {
                                 
                                 if texties.contains(text.trimmingCharacters(in: .whitespacesAndNewlines)) != true {
-                                
+                                    selectedDate = Date.now
                                 if text.count > characters {
                                     krotos += increaseKrotos
                                     characters += 50
@@ -1166,6 +1619,9 @@ struct HomeView: View {
                                 titles.append(title)
                                 
                        dates.append(selectedDate)
+                                    imagas.append(imageLinkie)
+                                    latestEntry = title
+                                    
                                 entrySelected.append(entry)
                                     
                                     addEntry = false
@@ -1174,15 +1630,23 @@ struct HomeView: View {
                                 text = ""
                                 date = ""
                                 title = ""
+                                imageLinkie = ""
                                 saveData = false
-                                
-                            
+                                    
+                                    
+                        
+                                    
+                                  
                                
                                 UserDefaults.standard.set(titles, forKey: "titles")
                                 
                                 UserDefaults.standard.set(dates, forKey: "dates")
                                 UserDefaults.standard.set(texties, forKey: "texties")
+                                   
                                 UserDefaults.standard.set(entrySelected, forKey: "entrySelected")
+                                 
+                                    UserDefaults.standard.set(imagas, forKey: "imagas")
+                                 
                                 
                                 } else {
                                    spamAlert = true
@@ -1191,25 +1655,29 @@ struct HomeView: View {
               
                             
                         }
-                     
+                        
                         
                        
                     } message: {
-                        Text("You won't be able to edit this entry after you create it. It's a journal entry after all.")
+                        Text("Make sure you've thought through what you wanna say.")
                     }
                 }
-                .alert("You still have some fields blank.", isPresented: $missingInfo) {
+                .confirmationDialog("You still have some fields blank.", isPresented: $missingInfo, titleVisibility: .visible) {
                   
                 } message: {
                     Text("Please fill in everything before submitting.")
                 }
             
+             
+                        
                 }
-           
-        
+                    .navigationTitle("Add a new entry")
+                   
             }
+     
+            }
+        }
         .padding(.top, 90)
-                
             }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
@@ -1270,5 +1738,6 @@ struct HomeView_Previews: PreviewProvider {
             .previewInterfaceOrientation(.portrait)
     }
 }
+
 
 
