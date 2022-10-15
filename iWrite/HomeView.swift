@@ -14,6 +14,7 @@ import UserNotifications
 
 
 struct HomeView: View {
+    @State var clickies = 0
     @State var tooLong = false
    @State var countsa = 0
  @State var imageLinkie = ""
@@ -40,10 +41,11 @@ struct HomeView: View {
     @State var notifMessage = ""
     @State var scheduled = false
     @AppStorage("hoursiee") var hoursi = 1
-@State var entryEditText = ""
+
     @State var shopShown = false
  @State var purchaseSuccess = false
     @State var purchaseFail = false
+    @State var processing = false
   @State private var dates: [Date] = UserDefaults.standard.object(forKey: "dates") as? [Date] ?? []
 @State var krotosSheet = false
     @State var spamAlert = false
@@ -52,7 +54,7 @@ struct HomeView: View {
 @State var textValue = ""
     @State var addEntry = false
 @State private var presentSheet = false
-@State var editEntry = false
+
 @State var searchedText = ""
     @State private var entrySelected: [Int] = UserDefaults.standard.object(forKey: "entrySelected") as? [Int] ?? []
     @AppStorage("entry") private var entry = 0
@@ -431,16 +433,27 @@ struct HomeView: View {
                                 .navigationTitle("Schedule reminders")
                                 }
                             }
+                            
+                            Text("When you first enter the app ( after quitting it ), you must double tap the entry you choose. If not, all your entries will be messed up.")
+                                .fontWeight(.bold)
 
                             ForEach(entrySelected, id: \.self) { hi in
                                 Section {
                                     
                                     Button(action:{
-                                        presentSheet = true
+                                        
+                                        clickies += 1
                                         thatImage = imagas[hi]
                                         thatDate = dates[hi]
                                         thatText = texties[hi]
                                         thatTitle = titles[hi]
+                                        
+                                        if clickies == 1 {
+                                          processing = true
+                                        } else {
+                                            presentSheet = true
+                                        }
+                                        
                                     }) {
                                         HStack {
                                         Image(systemName: "\(hi).circle.fill")
@@ -451,40 +464,19 @@ struct HomeView: View {
                                         
                                         }
                                     }
+                                    .alert("This entry is still processing", isPresented: $processing) {
+                                        
+                                    } message: {
+                                        Text("Please click ONLY this entry again.")
+                                    }
                                     .sheet(isPresented: $presentSheet) {
                                         NavigationView {
                                         List {
                                             
-                                            Button("Edit") {
-                                                editEntry = true
-                                                entryEditText = texties[hi]
-                                            }
-                                            .sheet(isPresented: $editEntry) {
-                                                NavigationView {
-                                                    List {
-                                                        Section {
-                                                            TextEditor(text: $entryEditText)
-                                                                .focused($keyTurnOn)
-                                                            HStack {
-                                                                Spacer()
-                                                            Button("Make edit") {
-                                                                texties[hi] = entryEditText
-                                                                UserDefaults.standard.set(texties, forKey: "texties")
-                                                                
-                                                             entryEditText = ""
-                                                                editEntry = false
-                                                            }
-                                                                Spacer()
-                                                            }
-                                                        }
-                                                    }
-                                                    .navigationBarTitle("Edit this entry")
-                                                }
-                                            }
+                                        
                                             
                                              
-                                            
-                                    
+                                  
                     
                                     
                                             HStack {
@@ -539,13 +531,9 @@ struct HomeView: View {
                                     
                              
                                 }
+                            
                            }
-                            .onDelete { indexSet in
-                                
-                                entrySelected.remove(atOffsets: indexSet)
-                                UserDefaults.standard.set(entrySelected, forKey: "entrySelected")
-                                
-                            }
+                       
                         }
                        }
                    
@@ -1136,7 +1124,7 @@ struct HomeView: View {
                                  
                                     
                                     Section {
-                                      
+                                        
                                         Section {
                                             VStack {
                                                 
@@ -1170,9 +1158,9 @@ struct HomeView: View {
                                         }
                                         
                                         Section {
-                                    
+                                            
                                             VStack {
-                                     
+                                                
                                                 
                                                 Button(action: {
                                                     
@@ -1185,16 +1173,16 @@ struct HomeView: View {
                                                         } else {
                                                             purchaseFail = true
                                                         }
-                                                          
-                                                        } else {
-                                                           purchaseFail = true
-                                                        }
+                                                        
+                                                    } else {
+                                                        purchaseFail = true
+                                                    }
                                                 }) {
                                                     Image(systemName: "function")
-                                                                .font(.largeTitle)
+                                                        .font(.largeTitle)
                                                         .frame(width: 310, height: 50)
                                                         .foregroundColor(.primary)
-                                                      
+                                                    
                                                     Text("500 Krotos")
                                                         .fontWeight(.ultraLight)
                                                         .foregroundColor(.primary)
@@ -1203,9 +1191,9 @@ struct HomeView: View {
                                         }
                                         
                                         Section {
-                                      
+                                            
                                             VStack {
-                                     
+                                                
                                                 
                                                 Button(action: {
                                                     
@@ -1218,16 +1206,16 @@ struct HomeView: View {
                                                         } else {
                                                             purchaseFail = true
                                                         }
-                                                          
-                                                        } else {
-                                                           purchaseFail = true
-                                                        }
+                                                        
+                                                    } else {
+                                                        purchaseFail = true
+                                                    }
                                                 }) {
                                                     Image(systemName: "signature")
-                                                                .font(.largeTitle)
+                                                        .font(.largeTitle)
                                                         .frame(width: 310, height: 50)
                                                         .foregroundColor(.primary)
-                                                      
+                                                    
                                                     Text("1000 Krotos")
                                                         .fontWeight(.ultraLight)
                                                         .foregroundColor(.primary)
@@ -1237,9 +1225,9 @@ struct HomeView: View {
                                         
                                         
                                         Section {
-                                           
+                                            
                                             VStack {
-                                     
+                                                
                                                 
                                                 Button(action: {
                                                     
@@ -1252,16 +1240,16 @@ struct HomeView: View {
                                                         } else {
                                                             purchaseFail = true
                                                         }
-                                                          
-                                                        } else {
-                                                           purchaseFail = true
-                                                        }
+                                                        
+                                                    } else {
+                                                        purchaseFail = true
+                                                    }
                                                 }) {
                                                     Image(systemName: "heart.text.square.fill")
-                                                                .font(.largeTitle)
+                                                        .font(.largeTitle)
                                                         .frame(width: 310, height: 50)
                                                         .foregroundColor(.primary)
-                                                      
+                                                    
                                                     Text("2000 Krotos")
                                                         .fontWeight(.ultraLight)
                                                         .foregroundColor(.primary)
@@ -1270,9 +1258,9 @@ struct HomeView: View {
                                         }
                                         
                                         Section {
-                                       
+                                            
                                             VStack {
-                                     
+                                                
                                                 
                                                 Button(action: {
                                                     
@@ -1285,16 +1273,16 @@ struct HomeView: View {
                                                         } else {
                                                             purchaseFail = true
                                                         }
-                                                          
-                                                        } else {
-                                                           purchaseFail = true
-                                                        }
+                                                        
+                                                    } else {
+                                                        purchaseFail = true
+                                                    }
                                                 }) {
                                                     Image(systemName: "globe.asia.australia")
-                                                                .font(.largeTitle)
+                                                        .font(.largeTitle)
                                                         .frame(width: 310, height: 50)
                                                         .foregroundColor(.primary)
-                                                      
+                                                    
                                                     Text("2500 Krotos")
                                                         .fontWeight(.ultraLight)
                                                         .foregroundColor(.primary)
@@ -1305,7 +1293,7 @@ struct HomeView: View {
                                         Section {
                                             
                                             VStack {
-                                     
+                                                
                                                 
                                                 Button(action: {
                                                     
@@ -1318,16 +1306,16 @@ struct HomeView: View {
                                                         } else {
                                                             purchaseFail = true
                                                         }
-                                                          
-                                                        } else {
-                                                           purchaseFail = true
-                                                        }
+                                                        
+                                                    } else {
+                                                        purchaseFail = true
+                                                    }
                                                 }) {
                                                     Image(systemName: "tortoise.fill")
-                                                                .font(.largeTitle)
+                                                        .font(.largeTitle)
                                                         .frame(width: 310, height: 50)
                                                         .foregroundColor(.primary)
-                                                      
+                                                    
                                                     Text("3000 Krotos")
                                                         .fontWeight(.ultraLight)
                                                         .foregroundColor(.primary)
@@ -1335,8 +1323,10 @@ struct HomeView: View {
                                             }
                                         }
                                         
+                                        HStack {
+                                            Spacer()
                                         Section {
-                                           
+                                            
                                             VStack {
                                                 Text("Buy Custom greeting")
                                                     .fontWeight(.light)
@@ -1348,15 +1338,15 @@ struct HomeView: View {
                                                     .fontWeight(.ultraLight)
                                                     .font(.body)
                                                 TextField("Your custom greeting", text: $customiee)
-                                                        .frame(width: 300)
-                                                        .cornerRadius(10)
-                                                        .textFieldStyle(
-                                                RoundedBorderTextFieldStyle()
-                                                        )
-                                                        .focused($keyboardOn)
+                                                    .frame(width: 300)
+                                                    .cornerRadius(10)
+                                                    .textFieldStyle(
+                                                        RoundedBorderTextFieldStyle()
+                                                    )
+                                                    .focused($keyboardOn)
                                                 
                                                 Button {
-                                                   
+                                                    
                                                     if customiee.count == 0 {
                                                         fiill = true
                                                     } else {
@@ -1381,24 +1371,26 @@ struct HomeView: View {
                                                             purchaseFail = true
                                                         }
                                                     }
-                                             
                                                     
-                                              
+                                                    
+                                                    
                                                 } label: {
-                                                   
+                                                    
                                                     ZStack {
                                                         RoundedRectangle(cornerRadius: 8)
-                                                        .frame(width: 200, height: 60)
-                                                        .foregroundColor(.black)
+                                                            .frame(width: 200, height: 60)
+                                                            .foregroundColor(.black)
                                                         Text("Purchase")
                                                             .font(.system(size: 22))
                                                             .foregroundColor(.white)
                                                     }
                                                 }
-                                            
+                                                
                                             }
                                         }
                                         
+                                        Spacer()
+                                    }
                                     }
                                     
                                     
@@ -1659,7 +1651,7 @@ struct HomeView: View {
                         
                        
                     } message: {
-                        Text("Make sure you've thought through what you wanna say.")
+                        Text("You won't be able to edit nor delete an entry once its created. It's a journal entry after all, and you don't edit entries after you make them.")
                     }
                 }
                 .confirmationDialog("You still have some fields blank.", isPresented: $missingInfo, titleVisibility: .visible) {
