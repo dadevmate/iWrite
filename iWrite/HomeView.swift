@@ -14,6 +14,7 @@ import UserNotifications
 
 
 struct HomeView: View {
+    @State var sketchView = false
     @State var clickies = 0
     @State var tooLong = false
    @State var countsa = 0
@@ -372,7 +373,7 @@ struct HomeView: View {
                                         
                                         
                                         Section {
-                                            Stepper("No. of hours",value: $hoursies, in: 0...9)
+                                            Stepper("No. of hours",value: $hoursies, in: 0...48)
                                         Text("\(hoursies) hour(s)")
                                             Stepper("No. of minutes",value: $minutesie, in: 1...60)
                                         Text("\(minutesie) minute(s)")
@@ -434,8 +435,7 @@ struct HomeView: View {
                                 }
                             }
                             
-                            Text("When you first enter the app ( after quitting it ), you must double tap the entry you choose. If not, all your entries will be messed up.")
-                                .fontWeight(.bold)
+                     
 
                             ForEach(entrySelected, id: \.self) { hi in
                                 Section {
@@ -464,10 +464,8 @@ struct HomeView: View {
                                         
                                         }
                                     }
-                                    .alert("This entry is still processing", isPresented: $processing) {
+                                    .alert("Please click ONLY this entry again", isPresented: $processing) {
                                         
-                                    } message: {
-                                        Text("Please click ONLY this entry again.")
                                     }
                                     .sheet(isPresented: $presentSheet) {
                                         NavigationView {
@@ -531,9 +529,14 @@ struct HomeView: View {
                                     
                              
                                 }
+                                
                             
                            }
                        
+                        } header: {
+                            Text("Old entries written before v1.44 may be unable to open")
+                        } footer: {
+                            Text(" * When you first enter the app ( after quitting it ), you must double tap the entry you choose. If not, all your entries will be messed up.")
                         }
                        }
                    
@@ -756,16 +759,33 @@ struct HomeView: View {
                         
                         
                 }
-                    Button {
-                addEntry = true
-                    } label: {
-                    
-                            VStack {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.system(size: 70))
-                            }
-                    .foregroundColor(Color(red: 0.5, green: 0.4, blue: 0.8))
+                    HStack {
+                        Button {
+                        sketchView = true
+                        } label : {
+                            Image(systemName: "pencil.circle.fill")
+                                .font(.system(size: 70))
+                                .foregroundColor(.white)
                         }
+                      
+                        .sheet(isPresented: $sketchView) {
+                            
+                          
+                            SketchView()
+                        }
+                        Button {
+                            addEntry = true
+                        } label: {
+                            
+                            VStack {
+                                Image(systemName: "plus.circle.fill")
+                                    .font(.system(size: 70))
+                            }
+                            .foregroundColor(Color(red: 0.5, green: 0.4, blue: 0.8))
+                        }
+                        
+                    }
+                 
                     Button {
                        shopShown = true
                        shopClicked = true
@@ -1668,6 +1688,8 @@ struct HomeView: View {
             }
      
             }
+            
+        
         }
         .padding(.top, 90)
             }
@@ -1684,7 +1706,7 @@ struct HomeView: View {
                  
         }
             
-          
+               
             
         }
 

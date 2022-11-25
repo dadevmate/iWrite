@@ -69,7 +69,7 @@ struct YouWrite_journal_entriesEntryView : View {
                     HStack {
                         
                         Button {
-                            
+                         
                         } label: {
                             Image(systemName: "pencil.circle.fill")
                                 .font(.system(size: 38))

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		581DFB5F286062750093FBE0 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 581DFB5E286062750093FBE0 /* GoogleMobileAds */; };
 		581DFB622860682A0093FBE0 /* BannerAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581DFB612860682A0093FBE0 /* BannerAd.swift */; };
+		583D9F9E290E74E2006A32D0 /* SketchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583D9F9D290E74E2006A32D0 /* SketchView.swift */; };
 		5847D41028CA05720000BC65 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5847D40F28CA05720000BC65 /* WidgetKit.framework */; };
 		5847D41228CA05720000BC65 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5847D41128CA05720000BC65 /* SwiftUI.framework */; };
 		5847D41528CA05720000BC65 /* YouWrite_journal_entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5847D41428CA05720000BC65 /* YouWrite_journal_entries.swift */; };
@@ -74,6 +75,7 @@
 /* Begin PBXFileReference section */
 		581DFB602860675D0093FBE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		581DFB612860682A0093FBE0 /* BannerAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAd.swift; sourceTree = "<group>"; };
+		583D9F9D290E74E2006A32D0 /* SketchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchView.swift; sourceTree = "<group>"; };
 		5847D40D28CA05720000BC65 /* YouWrite journal entriesExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "YouWrite journal entriesExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5847D40F28CA05720000BC65 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		5847D41128CA05720000BC65 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -187,6 +189,7 @@
 				58760F2D285AEB5500123E72 /* iWrite.entitlements */,
 				5872D4E1283BBEB50051C828 /* iWriteApp.swift */,
 				5872D4E3283BBEB50051C828 /* HomeView.swift */,
+				583D9F9D290E74E2006A32D0 /* SketchView.swift */,
 				58DF5ADB28641A8900BD889A /* krotosSheet.swift */,
 				584961992869A63E0050A8BF /* GoogleService-Info.plist */,
 				5872D4E5283BBEB60051C828 /* Assets.xcassets */,
@@ -409,6 +412,7 @@
 				5872D4E4283BBEB50051C828 /* HomeView.swift in Sources */,
 				5847D41B28CA05730000BC65 /* YouWrite_journal_entries.intentdefinition in Sources */,
 				5872D4E2283BBEB50051C828 /* iWriteApp.swift in Sources */,
+				583D9F9E290E74E2006A32D0 /* SketchView.swift in Sources */,
 				58DF5ADC28641A8900BD889A /* krotosSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -637,10 +641,11 @@
 				INFOPLIST_FILE = iWrite/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = YouWrite;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Protect your journal entries and prevent others from accessing them.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save drawings you make using Sketch Pad";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
@@ -649,7 +654,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.45;
+				MARKETING_VERSION = 1.49;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nethan.sample.iAuthor;
 				PRODUCT_NAME = iWrite;
@@ -675,10 +680,11 @@
 				INFOPLIST_FILE = iWrite/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = YouWrite;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Protect your journal entries and prevent others from accessing them.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save drawings you make using Sketch Pad";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
@@ -687,7 +693,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.45;
+				MARKETING_VERSION = 1.49;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nethan.sample.iAuthor;
 				PRODUCT_NAME = iWrite;
